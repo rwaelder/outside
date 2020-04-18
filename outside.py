@@ -10,7 +10,7 @@ from nwsURLS import NWSURLS
 # National Weather Service does not require an account to use API.
 
 
-mapQuestApiKey = '5S4GY9hSFme8nx7MFofVZojJCPAPeVEb'
+mapQuestApiKey = ''
 
 def save_url(key):
 	with open('nwsURLS.py', 'a') as f:
