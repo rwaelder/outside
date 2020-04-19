@@ -1,6 +1,14 @@
 # outside
 Python weather app
 
+
+
+Requires Map Quest API key. Key can be obtained by creating an account at [developer.mapquest.com](https://developer.mapquest.com)
+
+Add key to 'outside.conf' file
+
+<b>How to use</b>
+
 Command line usage. 
 Optionally argument based.
 
