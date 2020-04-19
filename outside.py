@@ -1,11 +1,19 @@
 import requests
 import json
 import sys
+import os
+
+path = os.path.dirname(os.path.abspath(__file__))
+
+sys.path.insert(1, os.path.join(path, 'Outside'))
+
+
 
 try:
 	from nwsURLS import NWSURLS
 except:
-	with open ('nwsURLS.py', 'w') as f:
+	nwsURLFile = os.path.join(path, 'nwsURLS.py')
+	with open (nwsURLFile, 'w') as f:
 		f.write('NWSURLS = {}\n')
 		NWSURLS = {}
 
@@ -14,20 +22,22 @@ except:
 # mapQuest API required for geocoding (turning city name to latitide and longitude)
 # National Weather Service does not require an account to use API.
 
+confFile = os.path.join(path, 'outside.conf')
 try:
-	with open ('outside.conf', 'r') as f:
+	with open (confFile, 'r') as f:
 		mapQuestApiKey = f.readline()
 
 except IOError:
-	with open ('outside.conf', 'w') as f:
+	with open (confFile, 'w') as f:
 		f.write('Replace me with API key.')
 
-	print('No MapQuest API key found. Please add API key to \'outside.conf\'.')
+	print('No MapQuest API key found. Please add API key to %s.' % confFile)
 	print('To obtain a key, create an account at developer.mapquest.com')
 	sys.exit()
 
 def save_url(key):
-	with open('nwsURLS.py', 'a') as f:
+	nwsURLFile = os.path.join(path, 'nwsURLS.py')
+	with open(nwsURLFile, 'a') as f:
 		f.write('NWSURLS[\'%s\'] = \'%s\'\n' % (key, NWSURLS[key]))
 
 def jprint(obj):
