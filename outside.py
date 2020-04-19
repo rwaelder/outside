@@ -1,7 +1,6 @@
 import requests
 import json
 import sys
-import os
 
 try:
 	from nwsURLS import NWSURLS
