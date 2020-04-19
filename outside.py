@@ -1,16 +1,31 @@
 import requests
 import json
 import sys
+import os
 
-from nwsURLS import NWSURLS
+try:
+	from nwsURLS import NWSURLS
+except:
+	with open ('nwsURLS.py', 'w') as f:
+		f.write('NWSURLS = {}\n')
+		NWSURLS = {}
 
 
 # To obtain mapQuest API key, create free account at developer.mapquest.com
 # mapQuest API required for geocoding (turning city name to latitide and longitude)
 # National Weather Service does not require an account to use API.
 
+try:
+	with open ('outside.conf', 'r') as f:
+		mapQuestApiKey = f.readline()
 
-mapQuestApiKey = ''
+except IOError:
+	with open ('outside.conf', 'w') as f:
+		f.write('Replace me with API key.')
+
+	print('No MapQuest API key found. Please add API key to \'outside.conf\'.')
+	print('To obtain a key, create an account at developer.mapquest.com')
+	sys.exit()
 
 def save_url(key):
 	with open('nwsURLS.py', 'a') as f:
@@ -105,12 +120,8 @@ def main():
 		city = ' '.join(sys.argv[1:-1])
 		state = sys.argv[-1]
 
-
-	# print('%s, %s' % (city, state))
-
 	forecast = get_forecast(city, state)
 
-	# # jprint(forecast)
 	print()
 	print(forecast['properties']['periods'][0]['detailedForecast'])
 	print()
