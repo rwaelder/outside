@@ -132,8 +132,10 @@ def main():
 	forecast = get_forecast(city, state)
 
 	print()
-	print(forecast['properties']['periods'][0]['detailedForecast'])
-	print()
+	for i in range(3):
+		print(forecast['properties']['periods'][i]['name'])
+		print(forecast['properties']['periods'][i]['detailedForecast'])
+		print()
 
 
 if __name__ == '__main__':
